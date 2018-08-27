@@ -1,6 +1,6 @@
 package packing.size;
 
-public abstract class TwoDimensionPackageSize implements PackageSize {
+public abstract class EnvelopeSize implements PackageSize {
 
     @Override
     public final String getSize() {

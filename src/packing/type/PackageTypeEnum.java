@@ -1,6 +1,6 @@
 package packing.type;
 
-enum PackageTypeEnum {
+public enum PackageTypeEnum {
 
     BOX, ENVELOPE;
 }

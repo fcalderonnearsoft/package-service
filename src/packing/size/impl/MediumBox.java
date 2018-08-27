@@ -1,8 +1,8 @@
 package packing.size.impl;
 
-import packing.size.ThreeDimensionPackageSize;
+import packing.size.BoxSize;
 
-public class MediumBox extends ThreeDimensionPackageSize {
+public class MediumBox extends BoxSize {
 
     @Override
     public String getDescription() {

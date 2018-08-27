@@ -1,8 +1,8 @@
 package packing.size.impl;
 
-import packing.size.ThreeDimensionPackageSize;
+import packing.size.BoxSize;
 
-public class SmallBox extends ThreeDimensionPackageSize {
+public class SmallBox extends BoxSize {
 
     @Override
     public String getDescription() {

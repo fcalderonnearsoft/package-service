@@ -1,8 +1,8 @@
 package packing.size.impl;
 
-import packing.size.TwoDimensionPackageSize;
+import packing.size.EnvelopeSize;
 
-public class SmallEnvelope extends TwoDimensionPackageSize {
+public class SmallEnvelope extends EnvelopeSize {
 
     @Override
     public String getDescription() {

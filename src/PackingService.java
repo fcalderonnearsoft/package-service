@@ -1,13 +1,12 @@
 import mailing.MailingInformation;
 import packing.Package;
 import packing.content.PackageContent;
-import packing.size.impl.MediumEnvelope;
-import packing.size.impl.SmallBox;
-import packing.type.impl.Box;
-import packing.type.impl.Envelope;
+import packing.size.PackageSizeEnum;
+import packing.type.PackageTypeEnum;
+import packing.type.PackageTypeFactory;
 import packing.type.PackageType;
-import shipping.impl.AirShipping;
-import shipping.impl.LandShipping;
+import shipping.ShippingModeEnum;
+import shipping.ShippingModeFactory;
 import shipping.ShippingMode;
 
 public class PackingService {
@@ -20,37 +19,37 @@ public class PackingService {
 
     private static void sendPackageOne() {
         MailingInformation mailingInformation = new MailingInformation();
-        mailingInformation.setSenderName("Rafa Manrique").setSenderAddress("Colima, Col.")
+        mailingInformation.setSenderName("Rafa Manrique").setSenderAddress("Chihuahua, Chih")
                           .setReceiverName("Pau Quezada").setReceiverAddress("Casas grandes, Chih");
 
-        ShippingMode shippingType = new LandShipping();
+        ShippingMode shippingType = ShippingModeFactory.create(ShippingModeEnum.LAND);
 
-        PackageType packageType = new Box();
-        packageType.setSize(new SmallBox());
+        PackageType packageType = PackageTypeFactory.create(PackageTypeEnum.BOX);
 
         PackageContent packageContent = new PackageContent("glass trophy to the java dev of the year", true, false, false);
 
-        Package pack = new Package();
-        pack.setMailingInformation(mailingInformation);
-        pack.setShippingType(shippingType);
-        pack.setPackageType(packageType);
-        pack.setPackageContent(packageContent);
-
-        pack.shipAndPrintTicket();
+        buildPackageShipAndPrintTicket(mailingInformation, shippingType, packageType, packageContent);
     }
 
     private static void sendPackageTwo() {
         MailingInformation mailingInformation = new MailingInformation();
-        mailingInformation.setSenderName("Pau Quezada").setSenderAddress("Casas grandes, Chih.")
+        mailingInformation.setSenderName("Pau Quezada").setSenderAddress("Casas grandes, Chih")
                 .setReceiverName("Rafa Manrique").setReceiverAddress("Colima, Col");
 
-        ShippingMode shippingType = new AirShipping();
+        ShippingMode shippingType = ShippingModeFactory.create(ShippingModeEnum.AIR);
 
-        PackageType packageType = new Envelope();
-        packageType.setSize(new MediumEnvelope());
+        PackageType packageType = PackageTypeFactory.create(PackageTypeEnum.ENVELOPE);
+        packageType.setSize(PackageSizeEnum.MEDIUM);
 
         PackageContent packageContent = new PackageContent("anthrax", false, false, true);
 
+        buildPackageShipAndPrintTicket(mailingInformation, shippingType, packageType, packageContent);
+    }
+
+    private static void buildPackageShipAndPrintTicket(MailingInformation mailingInformation,
+                                                       ShippingMode shippingType,
+                                                       PackageType packageType,
+                                                       PackageContent packageContent) {
         Package pack = new Package();
         pack.setMailingInformation(mailingInformation);
         pack.setShippingType(shippingType);
@@ -59,4 +58,6 @@ public class PackingService {
 
         pack.shipAndPrintTicket();
     }
+
+
 }

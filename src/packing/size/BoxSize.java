@@ -1,6 +1,6 @@
 package packing.size;
 
-public abstract class ThreeDimensionPackageSize implements PackageSize {
+public abstract class BoxSize implements PackageSize {
 
     @Override
     public final String getSize() {
