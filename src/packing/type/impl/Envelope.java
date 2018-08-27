@@ -1,4 +1,6 @@
-package packing.type;
+package packing.type.impl;
+
+import packing.type.PackageType;
 
 public class Envelope extends PackageType {
 

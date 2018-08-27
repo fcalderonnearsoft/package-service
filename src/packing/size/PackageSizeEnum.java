@@ -1,6 +1,6 @@
 package packing.size;
 
-enum SizeEnum {
+public enum PackageSizeEnum {
 
     SMALL, MEDIUM, LARGE;
 }

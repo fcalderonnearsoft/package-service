@@ -1,6 +1,6 @@
 package shipping;
 
-enum ShippingTypeEnum {
+enum ShippingModeEnum {
 
     LAND, AIR;
 }

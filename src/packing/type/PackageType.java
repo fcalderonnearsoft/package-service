@@ -4,9 +4,9 @@ import packing.size.PackageSize;
 
 public abstract class PackageType {
 
-    String name;
-    String description;
-    PackageSize packageSize;
+    protected String name;
+    protected String description;
+    private PackageSize packageSize;
 
     public String getName() {
         return name;

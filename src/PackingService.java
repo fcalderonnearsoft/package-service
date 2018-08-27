@@ -1,15 +1,14 @@
 import mailing.MailingInformation;
 import packing.Package;
 import packing.content.PackageContent;
-import packing.size.LargeEnvelope;
-import packing.size.MediumEnvelope;
-import packing.size.SmallBox;
-import packing.type.Box;
-import packing.type.Envelope;
+import packing.size.impl.MediumEnvelope;
+import packing.size.impl.SmallBox;
+import packing.type.impl.Box;
+import packing.type.impl.Envelope;
 import packing.type.PackageType;
-import shipping.AirShipping;
-import shipping.LandShipping;
-import shipping.ShippingType;
+import shipping.impl.AirShipping;
+import shipping.impl.LandShipping;
+import shipping.ShippingMode;
 
 public class PackingService {
 
@@ -21,10 +20,10 @@ public class PackingService {
 
     private static void sendPackageOne() {
         MailingInformation mailingInformation = new MailingInformation();
-        mailingInformation.setSenderName("Rafa Manrique").setSenderAddress("Chihuahua, Chih.")
-                          .setReceiverName("Doris Gonzalez").setReceiverAddress("Casas grandes, Chih");
+        mailingInformation.setSenderName("Rafa Manrique").setSenderAddress("Colima, Col.")
+                          .setReceiverName("Pau Quezada").setReceiverAddress("Casas grandes, Chih");
 
-        ShippingType shippingType = new LandShipping();
+        ShippingMode shippingType = new LandShipping();
 
         PackageType packageType = new Box();
         packageType.setSize(new SmallBox());
@@ -37,27 +36,27 @@ public class PackingService {
         pack.setPackageType(packageType);
         pack.setPackageContent(packageContent);
 
-        pack.ship();
+        pack.shipAndPrintTicket();
     }
 
     private static void sendPackageTwo() {
         MailingInformation mailingInformation = new MailingInformation();
         mailingInformation.setSenderName("Pau Quezada").setSenderAddress("Casas grandes, Chih.")
-                .setReceiverName("Rafa Manrique").setReceiverAddress("Chihuahua, Chih");
+                .setReceiverName("Rafa Manrique").setReceiverAddress("Colima, Col");
 
-        ShippingType shippingType = new AirShipping();
+        ShippingMode shippingType = new AirShipping();
 
         PackageType packageType = new Envelope();
         packageType.setSize(new MediumEnvelope());
 
         PackageContent packageContent = new PackageContent("anthrax", false, false, true);
 
-        packing.Package pack = new packing.Package();
+        Package pack = new Package();
         pack.setMailingInformation(mailingInformation);
         pack.setShippingType(shippingType);
         pack.setPackageType(packageType);
         pack.setPackageContent(packageContent);
 
-        pack.ship();
+        pack.shipAndPrintTicket();
     }
 }
