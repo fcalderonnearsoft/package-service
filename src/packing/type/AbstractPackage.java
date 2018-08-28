@@ -2,7 +2,6 @@ package packing.type;
 
 import mailing.MailInfo;
 import packing.content.PackageContent;
-import packing.type.PackageType;
 import shipment.mode.ShipmentMode;
 
 public abstract class AbstractPackage {

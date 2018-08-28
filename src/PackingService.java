@@ -16,18 +16,17 @@ import shipment.time.DeliveryTimeEnum;
 public class PackingService {
 
     public static void main(String[] args) {
+        MailInfo mailInfo = new MailInfo();
+        mailInfo.setSenderName("Pau Quezada").setSenderAddress("Casas grandes, Chih")
+                .setReceiverName("Rafa Manrique").setReceiverAddress("Colima, Col");
 
-        sendPackageOne();
-        sendPackageTwo();
-        sendExpressDocument();
-        sendExpressBox();
+        sendPackageOne(mailInfo);
+        sendPackageTwo(mailInfo);
+        sendExpressDocument(mailInfo);
+        sendExpressBox(mailInfo);
     }
 
-    private static void sendPackageOne() {
-        MailInfo mailInfo = new MailInfo();
-        mailInfo.setSenderName("Rafa Manrique").setSenderAddress("Chihuahua, Chih")
-                          .setReceiverName("Pau Quezada").setReceiverAddress("Casas grandes, Chih");
-
+    private static void sendPackageOne(MailInfo mailInfo) {
         ShipmentMode shippingMode = ShipmentModeFactory.create(ShipmentModeEnum.LAND, DeliveryTimeEnum.SLOW);
 
         PackageType packageType = PackageTypeFactory.create(PackageTypeEnum.BOX);
@@ -37,11 +36,7 @@ public class PackingService {
         buildPackageShipAndPrintTicket(mailInfo, shippingMode, packageType, packageContent);
     }
 
-    private static void sendPackageTwo() {
-        MailInfo mailInfo = new MailInfo();
-        mailInfo.setSenderName("Pau Quezada").setSenderAddress("Casas grandes, Chih")
-                .setReceiverName("Rafa Manrique").setReceiverAddress("Colima, Col");
-
+    private static void sendPackageTwo(MailInfo mailInfo) {
         ShipmentMode shippingMode = ShipmentModeFactory.create(ShipmentModeEnum.AIR);
         shippingMode.setDeliveryTime(DeliveryTimeEnum.EXPRESS);
 
@@ -53,12 +48,12 @@ public class PackingService {
         buildPackageShipAndPrintTicket(mailInfo, shippingMode, packageType, packageContent);
     }
 
-    private static void buildPackageShipAndPrintTicket(MailInfo mailingInformation,
+    private static void buildPackageShipAndPrintTicket(MailInfo mailInfo,
                                                        ShipmentMode shipmentMode,
                                                        PackageType packageType,
                                                        PackageContent packageContent) {
         AbstractPackage pack = new Package();
-        pack.setMailInfo(mailingInformation);
+        pack.setMailInfo(mailInfo);
         pack.setShippingMode(shipmentMode);
         pack.setPackageType(packageType);
         pack.setPackageContent(packageContent);
@@ -66,11 +61,7 @@ public class PackingService {
         pack.shipAndPrintTicket();
     }
 
-    private static void sendExpressDocument() {
-        MailInfo mailInfo = new MailInfo();
-        mailInfo.setSenderName("Pau Quezada").setSenderAddress("Casas grandes, Chih")
-                .setReceiverName("Rafa Manrique").setReceiverAddress("Colima, Col");
-
+    private static void sendExpressDocument(MailInfo mailInfo) {
         PackageContent packageContent = new PackageContent("javaschool member card", false, false, false);
 
         AbstractPackage pack = new ExpressDocumentDelivery(mailInfo, packageContent);
@@ -78,11 +69,7 @@ public class PackingService {
         pack.shipAndPrintTicket();
     }
 
-    private static void sendExpressBox() {
-        MailInfo mailInfo = new MailInfo();
-        mailInfo.setSenderName("Rafa Manrique").setSenderAddress("Colima, Col")
-                .setReceiverName("Pau Quezada").setReceiverAddress("Casas grandes, Chih");
-
+    private static void sendExpressBox(MailInfo mailInfo) {
         PackageContent packageContent = new PackageContent("12-bottle of rum box", true, true, false);
 
         AbstractPackage pack = new ExpressBoxDelivery(mailInfo, packageContent);
