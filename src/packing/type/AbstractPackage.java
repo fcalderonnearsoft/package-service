@@ -46,14 +46,12 @@ public abstract class AbstractPackage {
     }
 
     public void shipAndPrintTicket() {
-        System.out.println("SHIPPING");
-        System.out.println("--------------");
-        shippingMode.ship();
         new PrinterImpl().printTicket();
     }
 
     class PrinterImpl {
         public void printTicket() {
+            Map<String, String> shipmentInfo = buildShipmentInformationMap();
             Map<String, String> description = buildPackageDescriptionMap();
             Map<String, String> mailingInfo = buildPackageMailingInformationMap();
 
@@ -69,8 +67,13 @@ public abstract class AbstractPackage {
                 System.out.println("\n");
             };
 
+            printer.print("SHIPPING", shipmentInfo);
             printer.print("PACKAGE INFORMATION", description);
             printer.print("MAILING INFORMATION", mailingInfo);
+        }
+
+        private Map<String, String> buildShipmentInformationMap() {
+            return shippingMode.ship();
         }
 
         private Map<String,String> buildPackageDescriptionMap() {

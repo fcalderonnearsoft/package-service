@@ -4,6 +4,8 @@ import shipment.time.DeliveryTime;
 import shipment.time.DeliveryTimeEnum;
 import shipment.time.DeliveryTimeFactory;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Random;
 
 public abstract class ShipmentMode {
@@ -12,13 +14,19 @@ public abstract class ShipmentMode {
 
     protected DeliveryTimeFactory deliveryTimeFactory;
 
+    private Map<String, String> shipmentInformation;
+
+    public ShipmentMode() {
+        shipmentInformation = new LinkedHashMap<>();
+    }
+
     public void setDeliveryTime(DeliveryTimeEnum deliveryTimeEnum) {
         this.deliveryTime = deliveryTimeFactory.create(deliveryTimeEnum);
     }
 
     protected abstract String getMode();
 
-    public final void ship() {
+    public final Map<String, String> ship() {
         printShipmentMode();
         printDeliveryTime();
         receivePackageAtOrigin();
@@ -26,31 +34,32 @@ public abstract class ShipmentMode {
         generateFolio();
         transport();
         receivePackageAtDestination();
+        return shipmentInformation;
     }
 
     private void printShipmentMode() {
-        System.out.println("- Mode: " + getMode());
+        shipmentInformation.put("Mode", getMode());
     }
 
     private void printDeliveryTime() {
-        System.out.println("- Delivery time: " + deliveryTime.getTime() + "\n");
+        shipmentInformation.put("Delivery time", deliveryTime.getTime() + "\n");
     }
 
     private void receivePackageAtOrigin() {
-        System.out.println("- Receiving package at the origin office");
+        shipmentInformation.put("Step 1", "Receiving package at the origin office");
     }
 
     private void labelPackage() {
-        System.out.println("- Labeling package for shipping");
+        shipmentInformation.put("Step 2", "Labeling package for shipping");
     }
 
     private void generateFolio() {
-        System.out.println("- Folio number: " + new Random().nextInt(1000000));
+        shipmentInformation.put("Folio number", String.valueOf(new Random().nextInt(1000000)));
     }
 
     protected abstract void transport();
 
     private void receivePackageAtDestination() {
-        System.out.println("- Receiving package at destination office");
+        shipmentInformation.put("Step 3", "Receiving package at destination office");
     }
 }
