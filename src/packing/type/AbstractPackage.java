@@ -43,13 +43,9 @@ public abstract class AbstractPackage {
         public void printTicket() {
             Map<String, String> description = buildPackageDescriptionMap();
             Map<String, String> mailingInfo = buildPackageMailingInformationMap();
-            Printer printer = getPrinter();
-            printer.print("PACKAGE INFORMATION", description);
-            printer.print("MAILING INFORMATION", mailingInfo);
-        }
 
-        private Printer getPrinter() {
-            return (title, information) -> {
+            Printer printer = (title, information) -> {
+                System.out.println("\n");
                 System.out.println(title);
                 System.out.println("--------------");
                 for(Map.Entry<String, String> e : information.entrySet()) {
@@ -59,6 +55,9 @@ public abstract class AbstractPackage {
                 }
                 System.out.println("\n");
             };
+
+            printer.print("PACKAGE INFORMATION", description);
+            printer.print("MAILING INFORMATION", mailingInfo);
         }
 
         private Map<String,String> buildPackageDescriptionMap() {
@@ -85,10 +84,10 @@ public abstract class AbstractPackage {
 
         private Map<String, String> buildPackageMailingInformationMap() {
             Map<String, String> info = new LinkedHashMap<>();
-            info.put("Sender's name", mailingInformation.getSenderName());
-            info.put("Sender's address", mailingInformation.getSenderAddress());
-            info.put("Receiver's name", mailingInformation.getReceiverName());
-            info.put("Receiver's description", mailingInformation.getReceiverName());
+            info.put("Sender's name", mailInfo.getSenderName());
+            info.put("Sender's address", mailInfo.getSenderAddress());
+            info.put("Receiver's name", mailInfo.getReceiverName());
+            info.put("Receiver's description", mailInfo.getReceiverName());
             return info;
         }
 
