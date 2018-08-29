@@ -6,21 +6,6 @@ import shipment.time.DeliveryTimeEnum;
 
 public class ShipmentModeFactory {
 
-    public static ShipmentMode create(ShipmentModeEnum shipmentModeEnum) {
-        ShipmentMode shipmentMode = null;
-
-        switch (shipmentModeEnum) {
-            case LAND:
-                shipmentMode = new LandShipment();
-                break;
-            case AIR:
-                shipmentMode = new AirShipment();
-                break;
-        }
-
-        return shipmentMode;
-    }
-
     public static ShipmentMode create(ShipmentModeEnum shipmentModeEnum, DeliveryTimeEnum deliveryTimeEnum) {
         ShipmentMode shipmentMode = null;
 

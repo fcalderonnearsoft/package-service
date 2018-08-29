@@ -6,21 +6,6 @@ import packing.type.impl.envelope.Envelope;
 
 public class PackageTypeFactory {
 
-    public static PackageType create(PackageTypeEnum packageTypeEnum) {
-        PackageType packageType = null;
-
-        switch (packageTypeEnum) {
-            case BOX:
-                packageType = new Box();
-                break;
-            case ENVELOPE:
-                packageType = new Envelope();
-                break;
-        }
-
-        return packageType;
-    }
-
     public static PackageType create(PackageTypeEnum packageTypeEnum, PackageSizeEnum packageSizeEnum) {
         PackageType packageType = null;
 

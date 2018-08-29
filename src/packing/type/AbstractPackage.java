@@ -2,7 +2,11 @@ package packing.type;
 
 import mailing.MailInfo;
 import packing.content.PackageContent;
+import packing.size.PackageSizeEnum;
 import shipment.mode.ShipmentMode;
+import shipment.mode.ShipmentModeEnum;
+import shipment.mode.ShipmentModeFactory;
+import shipment.time.DeliveryTimeEnum;
 
 public abstract class AbstractPackage {
 
@@ -15,12 +19,20 @@ public abstract class AbstractPackage {
         this.mailInfo = mailInfo;
     }
 
-    public void setShippingMode(ShipmentMode shippingMode) {
+    void setShippingMode(ShipmentMode shippingMode) {
         this.shippingMode = shippingMode;
     }
 
-    public void setPackageType(PackageType packageType) {
+    public void setShippingMode(ShipmentModeEnum shippingModeEnum, DeliveryTimeEnum deliveryTimeEnum) {
+        this.shippingMode = ShipmentModeFactory.create(shippingModeEnum, deliveryTimeEnum);
+    }
+
+    void setPackageType(PackageType packageType) {
         this.packageType = packageType;
+    }
+
+    public void setPackageType(PackageTypeEnum packageTypeEnum, PackageSizeEnum packageSizeEnum) {
+        this.packageType = PackageTypeFactory.create(packageTypeEnum, packageSizeEnum);
     }
 
     public void setPackageContent(PackageContent packageContent) {

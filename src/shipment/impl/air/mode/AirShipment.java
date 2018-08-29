@@ -6,10 +6,6 @@ import shipment.time.DeliveryTimeEnum;
 
 public class AirShipment extends ShipmentMode {
 
-    public AirShipment() {
-        this(DeliveryTimeEnum.REGULAR);
-    }
-
     public AirShipment(DeliveryTimeEnum deliveryTimeEnum) {
         deliveryTimeFactory = new AirDeliveryTimeFactory();
         setDeliveryTime(deliveryTimeEnum);
