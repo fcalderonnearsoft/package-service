@@ -14,7 +14,7 @@ public abstract class ShipmentMode {
 
     protected DeliveryTimeFactory deliveryTimeFactory;
 
-    private Map<String, String> shipmentInformation;
+    protected Map<String, String> shipmentInformation;
 
     public ShipmentMode() {
         shipmentInformation = new LinkedHashMap<>();
@@ -60,6 +60,6 @@ public abstract class ShipmentMode {
     protected abstract void transport();
 
     private void receivePackageAtDestination() {
-        shipmentInformation.put("Step 3", "Receiving package at destination office");
+        shipmentInformation.put("Step 6", "Receiving package at destination office");
     }
 }
