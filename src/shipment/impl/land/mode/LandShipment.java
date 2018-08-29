@@ -6,10 +6,6 @@ import shipment.time.DeliveryTimeEnum;
 
 public class LandShipment extends ShipmentMode {
 
-    public LandShipment() {
-        this(DeliveryTimeEnum.REGULAR);
-    }
-
     public LandShipment(DeliveryTimeEnum deliveryTimeEnum) {
         deliveryTimeFactory = new LandDeliveryTimeFactory();
         setDeliveryTime(deliveryTimeEnum);
