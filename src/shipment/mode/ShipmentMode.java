@@ -46,20 +46,20 @@ public abstract class ShipmentMode {
     }
 
     private void receivePackageAtOrigin() {
-        shipmentInformation.put("Step 1", "Receiving package at the origin office");
+        shipmentInformation.put("Step " + (shipmentInformation.size() - 1), "Receiving package at the origin office");
     }
 
     private void labelPackage() {
-        shipmentInformation.put("Step 2", "Labeling package for shipping");
+        shipmentInformation.put("Step " + (shipmentInformation.size() - 1), "Labeling package for shipping");
     }
 
     private void generateFolio() {
-        shipmentInformation.put("Folio number", String.valueOf(new Random().nextInt(1000000)));
+        shipmentInformation.put("Step " + (shipmentInformation.size() - 1), "Folio number" + String.valueOf(new Random().nextInt(1000000)));
     }
 
     protected abstract void transport();
 
     private void receivePackageAtDestination() {
-        shipmentInformation.put("Step 6", "Receiving package at destination office");
+        shipmentInformation.put("Step " + (shipmentInformation.size() - 1), "Receiving package at destination office");
     }
 }
