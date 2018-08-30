@@ -1,12 +1,13 @@
+import javafx.util.Pair;
 import mailing.MailInfo;
 import packing.SizedPackageType;
 import packing.content.PackageContent;
 import packing.size.PackageSizeEnum;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Random;
 
-import packing.size.box.SizedBox;
-import packing.size.envelope.SizedEnvelope;
 import packing.type.PackageType;
 import packing.type.impl.Box;
 import packing.size.impl.box.LargeBox;
@@ -18,12 +19,10 @@ import packing.size.impl.envelope.MediumEnvelope;
 import packing.size.impl.envelope.SmallEnvelope;
 import packing.type.PackageTypeEnum;
 import shipment.mode.Shipping;
-import shipment.mode.air.AirShipping;
 import shipment.impl.air.ExpressAirShipping;
 import shipment.impl.air.RegularAirShipping;
 import shipment.impl.air.SlowAirShipping;
 import shipment.impl.land.ExpressLandShipping;
-import shipment.mode.land.LandShipping;
 import shipment.impl.land.RegularLandShipping;
 import shipment.impl.land.SlowLandShipping;
 import shipment.mode.ShipmentModeEnum;
@@ -44,19 +43,12 @@ class Package {
                                    ShipmentModeEnum shippingModeEnum,
                                    DeliveryTimeEnum deliveryTimeEnum) {
 
-        System.out.println("MAIL INFORMATION");
-        System.out.println("--------------");
+        Printer printer = new MapPrinter();
 
-        printMailingInformation();
-
-        System.out.println("PACKAGE INFORMATION");
-        System.out.println("--------------");
+        printer.print(getMailingInformation());
+        System.out.println("\n");
 
         printPackageInformation(packageTypeEnum, packageSizeEnum);
-
-        System.out.println("SHIPPING INFORMATION");
-        System.out.println("--------------");
-
         printShippingInformation(shippingModeEnum, deliveryTimeEnum);
 
         System.out.println("**********************************************");
@@ -64,6 +56,8 @@ class Package {
     }
 
     private void printPackageInformation(PackageTypeEnum packageTypeEnum, PackageSizeEnum packageSizeEnum) {
+        System.out.println("PACKAGE INFORMATION");
+        System.out.println("--------------");
         if (packageTypeEnum.equals(PackageTypeEnum.BOX)) {
             printBoxInformation(packageSizeEnum);
         } else if (packageTypeEnum.equals(PackageTypeEnum.ENVELOPE)) {
@@ -73,12 +67,14 @@ class Package {
         printPackageContent();
     }
 
-    private void printMailingInformation() {
-        System.out.println("Sender's name: " + mailInfo.getSenderName());
-        System.out.println("Sender's address: " + mailInfo.getSenderAddress());
-        System.out.println("Receiver's name: " + mailInfo.getReceiverName());
-        System.out.println("Receiver's address: " + mailInfo.getReceiverAddress());
-        System.out.println("\n");
+    private Pair<String, Map<String, String>> getMailingInformation() {
+        Map<String, String> mailInfoMap = new LinkedHashMap<>();
+        Pair<String, Map<String, String>> section = new Pair<>("MAIL INFORMATION", mailInfoMap);
+        mailInfoMap.put("Sender's name", mailInfo.getSenderName());
+        mailInfoMap.put("Sender's address", mailInfo.getSenderAddress());
+        mailInfoMap.put("Receiver's name", mailInfo.getReceiverName());
+        mailInfoMap.put("Receiver's address", mailInfo.getReceiverAddress());
+        return section;
     }
 
     private void printBoxInformation(PackageSizeEnum packageSizeEnum) {
@@ -136,6 +132,8 @@ class Package {
     }
 
     private void printShippingInformation(ShipmentModeEnum shippingModeEnum, DeliveryTimeEnum deliveryTimeEnum) {
+        System.out.println("SHIPPING INFORMATION");
+        System.out.println("--------------");
         if (shippingModeEnum.equals(ShipmentModeEnum.LAND)) {
             if (deliveryTimeEnum.equals(DeliveryTimeEnum.EXPRESS)) {
                 printLandExpressShippingInfo();
@@ -233,5 +231,18 @@ class Package {
     private void printFolio() {
         System.out.println("- Folio number: " + new Random().nextInt(1000000));
         System.out.println("\n");
+    }
+
+    private class MapPrinter implements Printer {
+        public void print(Pair<String, Map<String, String>> information) {
+            System.out.println("\n");
+            System.out.println(information.getKey());
+            System.out.println("--------------");
+            for(Map.Entry<String, String> e : information.getValue().entrySet()) {
+                String key = e.getKey();
+                String value = e.getValue();
+                System.out.println("- " + key + ": " + value);
+            }
+        }
     }
 }
