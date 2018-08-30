@@ -4,6 +4,8 @@ import shipment.time.DeliveryTime;
 import shipment.time.DeliveryTimeEnum;
 import shipment.time.DeliveryTimeFactory;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Random;
 
 public abstract class ShipmentMode {
@@ -12,45 +14,69 @@ public abstract class ShipmentMode {
 
     protected DeliveryTimeFactory deliveryTimeFactory;
 
-    public void setDeliveryTime(DeliveryTimeEnum deliveryTimeEnum) {
+    private Map<String, String> shipmentInfo;
+
+    private int deliveryStageCount;
+
+    protected ShipmentMode() {
+        shipmentInfo = new LinkedHashMap<>();
+        deliveryStageCount = 1;
+    }
+
+    protected void setDeliveryTime(DeliveryTimeEnum deliveryTimeEnum) {
         this.deliveryTime = deliveryTimeFactory.create(deliveryTimeEnum);
     }
 
     protected abstract String getMode();
 
-    public final void ship() {
+    public final Map<String, String> getShipmentInfo() {
         printShipmentMode();
         printDeliveryTime();
+        generateFolio();
         receivePackageAtOrigin();
         labelPackage();
-        generateFolio();
         transport();
         receivePackageAtDestination();
+
+        return shipmentInfo;
     }
 
     private void printShipmentMode() {
-        System.out.println("- Mode: " + getMode());
+        addShipmentInfo("Mode", getMode());
     }
 
     private void printDeliveryTime() {
-        System.out.println("- Delivery time: " + deliveryTime.getTime() + "\n");
-    }
-
-    private void receivePackageAtOrigin() {
-        System.out.println("- Receiving package at the origin office");
-    }
-
-    private void labelPackage() {
-        System.out.println("- Labeling package for shipping");
+        addShipmentInfo("Delivery time", deliveryTime.getTime());
     }
 
     private void generateFolio() {
-        System.out.println("- Folio number: " + new Random().nextInt(1000000));
+        addShipmentInfo("Folio number", String.valueOf(new Random().nextInt(1000000)) + "\n");
+    }
+
+    private void receivePackageAtOrigin() {
+        addShipmentInfo(deliveryStageCount, "Receiving package at the origin office");
+    }
+
+    private void labelPackage() {
+        addShipmentInfo(deliveryStageCount, "Labeling package for shipping");
     }
 
     protected abstract void transport();
 
     private void receivePackageAtDestination() {
-        System.out.println("- Receiving package at destination office");
+        addShipmentInfo(deliveryStageCount, "Receiving package at destination office");
+    }
+
+    protected void addShipmentInfo(int stageNumber, String value) {
+        addShipmentInfo("Step " + stageNumber, value);
+        deliveryStageCount++;
+    }
+
+    protected void addShipmentInfo(String key, String value) {
+        shipmentInfo.put(key, value);
+    }
+
+    protected int getDeliveryStageCount() {
+        return deliveryStageCount;
     }
 }

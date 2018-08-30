@@ -18,8 +18,8 @@ public class LandShipment extends ShipmentMode {
 
     @Override
     protected void transport() {
-        System.out.println("- Putting package in a delivery truck");
-        System.out.println("- Driving to destination");
-        System.out.println("- Arriving to the destination office");
+        addShipmentInfo(getDeliveryStageCount(), "Putting package in a delivery truck");
+        addShipmentInfo(getDeliveryStageCount(), "Driving to destination");
+        addShipmentInfo(getDeliveryStageCount(), "Arriving to the destination office");
     }
 }
