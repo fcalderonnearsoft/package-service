@@ -1,15 +1,19 @@
 package packing.size.impl.envelope;
 
-public class SmallEnvelope {
+import packing.size.envelope.SizedEnvelope;
 
-    public String getDescription() {
+public class SmallEnvelope implements SizedEnvelope {
+
+    public String getSize() {
         return "Small";
     }
 
+    @Override
     public String getLength() {
         return "30cm";
     }
 
+    @Override
     public String getWidth() {
         return "10cm";
     }

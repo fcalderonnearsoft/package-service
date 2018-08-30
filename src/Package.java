@@ -4,6 +4,8 @@ import packing.size.PackageSizeEnum;
 
 import java.util.Random;
 
+import packing.size.box.SizedBox;
+import packing.size.envelope.SizedEnvelope;
 import packing.size.impl.box.Box;
 import packing.size.impl.box.LargeBox;
 import packing.size.impl.box.MediumBox;
@@ -13,12 +15,12 @@ import packing.size.impl.envelope.LargeEnvelope;
 import packing.size.impl.envelope.MediumEnvelope;
 import packing.size.impl.envelope.SmallEnvelope;
 import packing.type.PackageTypeEnum;
-import shipment.impl.air.AirShipping;
+import shipment.mode.air.AirShipping;
 import shipment.impl.air.ExpressAirShipping;
 import shipment.impl.air.RegularAirShipping;
 import shipment.impl.air.SlowAirShipping;
 import shipment.impl.land.ExpressLandShipping;
-import shipment.impl.land.LandShipping;
+import shipment.mode.land.LandShipping;
 import shipment.impl.land.RegularLandShipping;
 import shipment.impl.land.SlowLandShipping;
 import shipment.mode.ShipmentModeEnum;
@@ -61,19 +63,19 @@ class Package {
 
         if (shippingModeEnum.equals(ShipmentModeEnum.LAND)) {
             if (deliveryTimeEnum.equals(DeliveryTimeEnum.EXPRESS)) {
-                printLandExpressDeliveryInfo();
+                printLandExpressShippingInfo();
             } else if (deliveryTimeEnum.equals(DeliveryTimeEnum.REGULAR)) {
-                printLandRegularDeliveryInfo();
+                printLandRegularShippingInfo();
             } else if (deliveryTimeEnum.equals(DeliveryTimeEnum.SLOW)) {
-                printLandSlowDeliveryInfo();
+                printLandSlowShippingInfo();
             }
         } else if (shippingModeEnum.equals(ShipmentModeEnum.AIR)) {
             if (deliveryTimeEnum.equals(DeliveryTimeEnum.EXPRESS)) {
-                printAirExpressDeliveryInfo();
+                printAirExpressShippingInfo();
             } else if (deliveryTimeEnum.equals(DeliveryTimeEnum.REGULAR)) {
-                printAirRegularDeliveryInfo();
+                printAirRegularShippingInfo();
             } else if (deliveryTimeEnum.equals(DeliveryTimeEnum.SLOW)) {
-                printAirSlowDeliveryInfo();
+                printAirSlowShippingInfo();
             }
         }
 
@@ -132,95 +134,89 @@ class Package {
     }
 
     private void printSmallBoxDescription() {
-        SmallBox box = new SmallBox();
-        System.out.println("Size: " + box.getDescription() + " (Length: " + box.getLength() + ", Width: " + box.getWidth() + ", Height: " + box.getHeight() + ")");
+        SizedBox box = new SmallBox();
+        printSizedBoxDescription(box);
     }
 
     private void printMediumBoxDescription() {
-        MediumBox box = new MediumBox();
-        System.out.println("Size: " + box.getDescription() + " (Length: " + box.getLength() + ", Width: " + box.getWidth() + ", Height: " + box.getHeight() + ")");
+        SizedBox box = new MediumBox();
+        printSizedBoxDescription(box);
     }
 
     private void printLargeBoxDescription() {
-        LargeBox box = new LargeBox();
-        System.out.println("Size: " + box.getDescription() + " (Length: " + box.getLength() + ", Width: " + box.getWidth() + ", Height: " + box.getHeight() + ")");
+        SizedBox box = new LargeBox();
+        printSizedBoxDescription(box);
     }
 
     private void printSmallEnvelopeDescription() {
-        SmallEnvelope envelope = new SmallEnvelope();
-        System.out.println("Size: " + envelope.getDescription() + " (Length: " + envelope.getLength() + ", Width: " + envelope.getWidth() + ")");
+        SizedEnvelope envelope = new SmallEnvelope();
+        printSizedEnvelopeDescription(envelope);
     }
 
     private void printMediumEnvelopeDescription() {
-        MediumEnvelope envelope = new MediumEnvelope();
-        System.out.println("Size: " + envelope.getDescription() + " (Length: " + envelope.getLength() + ", Width: " + envelope.getWidth() + ")");
+        SizedEnvelope envelope = new MediumEnvelope();
+        printSizedEnvelopeDescription(envelope);
     }
 
     private void printLargeEnvelopeDescription() {
-        LargeEnvelope envelope = new LargeEnvelope();
-        System.out.println("Size: " + envelope.getDescription() + " (Length: " + envelope.getLength() + ", Width: " + envelope.getWidth() + ")");
+        SizedEnvelope envelope = new LargeEnvelope();
+        printSizedEnvelopeDescription(envelope);
     }
 
-    private void printLandExpressDeliveryInfo() {
-        ExpressLandShipping shippingMode = new ExpressLandShipping();
+    private void printSizedBoxDescription(SizedBox box) {
+        System.out.println("Size: " + box.getSize() + " (Length: " + box.getLength() + ", Width: " + box.getWidth() + ", Height: " + box.getHeight() + ")");
+    }
+
+    private void printSizedEnvelopeDescription(SizedEnvelope envelope) {
+        System.out.println("Size: " + envelope.getSize() + " (Length: " + envelope.getLength() + ", Width: " + envelope.getWidth() + ")");
+    }
+
+    private void printLandExpressShippingInfo() {
+        LandShipping shippingMode = new ExpressLandShipping();
+        printLandShippingInfo(shippingMode);
+    }
+
+    private void printLandRegularShippingInfo() {
+        LandShipping shippingMode = new RegularLandShipping();
+        printLandShippingInfo(shippingMode);
+    }
+
+    private void printLandSlowShippingInfo() {
+        LandShipping shippingMode = new SlowLandShipping();
+        printLandShippingInfo(shippingMode);
+    }
+
+    private void printAirExpressShippingInfo() {
+        AirShipping shippingMode = new ExpressAirShipping();
+        printAirShippingInfo(shippingMode);
+    }
+
+    private void printAirRegularShippingInfo() {
+        AirShipping shippingMode = new RegularAirShipping();
+        printAirShippingInfo(shippingMode);
+    }
+
+    private void printAirSlowShippingInfo() {
+        AirShipping shippingMode = new SlowAirShipping();
+        printAirShippingInfo(shippingMode);
+    }
+
+    private void printLandShippingInfo(LandShipping shippingMode) {
         System.out.println("- Mode: " + shippingMode.getMode());
         System.out.println("- Delivery time: " + shippingMode.getDeliveryTime());
         printFolio();
-        printLandDeliveryStages();
+        LandShipping.printShippingStages();
     }
 
-    private void printLandRegularDeliveryInfo() {
-        RegularLandShipping shippingMode = new RegularLandShipping();
+    private void printAirShippingInfo(AirShipping shippingMode) {
         System.out.println("- Mode: " + shippingMode.getMode());
         System.out.println("- Delivery time: " + shippingMode.getDeliveryTime());
         printFolio();
-        printLandDeliveryStages();
-    }
-
-    private void printLandSlowDeliveryInfo() {
-        SlowLandShipping shippingMode = new SlowLandShipping();
-        System.out.println("- Mode: " + shippingMode.getMode());
-        System.out.println("- Delivery time: " + shippingMode.getDeliveryTime());
-        printFolio();
-        printLandDeliveryStages();
-    }
-
-    private void printAirExpressDeliveryInfo() {
-        ExpressAirShipping shippingMode = new ExpressAirShipping();
-        System.out.println("- Mode: " + shippingMode.getMode());
-        System.out.println("- Delivery time: " + shippingMode.getDeliveryTime());
-        printFolio();
-        printAirDeliveryStages();
-    }
-
-    private void printAirRegularDeliveryInfo() {
-        RegularAirShipping shippingMode = new RegularAirShipping();
-        System.out.println("- Mode: " + shippingMode.getMode());
-        System.out.println("- Delivery time: " + shippingMode.getDeliveryTime());
-        printFolio();
-        printAirDeliveryStages();
-    }
-
-    private void printAirSlowDeliveryInfo() {
-        SlowAirShipping shippingMode = new SlowAirShipping();
-        System.out.println("- Mode: " + shippingMode.getMode());
-        System.out.println("- Delivery time: " + shippingMode.getDeliveryTime());
-        printFolio();
-        printAirDeliveryStages();
+        AirShipping.printShippingStages();
     }
 
     private void printFolio() {
         System.out.println("- Folio number: " + new Random().nextInt(1000000));
         System.out.println("\n");
-    }
-
-    private void printLandDeliveryStages() {
-        LandShipping shipping = new LandShipping();
-        shipping.printShippingStages();
-    }
-
-    private void printAirDeliveryStages() {
-        AirShipping shipping = new AirShipping();
-        shipping.printShippingStages();
     }
 }

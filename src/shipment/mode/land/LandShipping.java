@@ -1,8 +1,12 @@
-package shipment.impl.land;
+package shipment.mode.land;
 
-public class LandShipping {
+public abstract class LandShipping {
 
-    public void printShippingStages() {
+    public abstract String getMode();
+
+    public abstract String getDeliveryTime();
+
+    public static void printShippingStages() {
         System.out.println("- Receiving package at the origin office");
         System.out.println("- Labeling package for shipping");
         System.out.println("- Putting package in a delivery truck");

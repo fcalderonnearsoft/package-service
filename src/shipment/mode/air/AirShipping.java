@@ -1,8 +1,12 @@
-package shipment.impl.air;
+package shipment.mode.air;
 
-public class AirShipping {
+public abstract class AirShipping {
 
-    public void printShippingStages() {
+    public abstract String getMode();
+
+    public abstract String getDeliveryTime();
+
+    public static void printShippingStages() {
         System.out.println("- Receiving package at the origin office");
         System.out.println("- Labeling package for shipping");
         System.out.println("- Putting package in a plane");
