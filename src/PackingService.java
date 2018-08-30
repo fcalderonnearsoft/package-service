@@ -26,12 +26,12 @@ public class PackingService {
 
     private static void sendPackageTwo() {
         MailInfo mailInfo = new MailInfo();
-        mailInfo.setSenderName("Pau Quezada").setSenderAddress("Casas grandes, Chih")
-                .setReceiverName("Rafa Manrique").setReceiverAddress("Colima, Col");
+        mailInfo.setSenderName("Carlos Marin").setSenderAddress("Cd. Juarez, Chih")
+                .setReceiverName("Crys Castillo").setReceiverAddress("Chihuahua, Chih");
 
-        PackageContent packageContent = new PackageContent("Anthrax", false, false, true);
+        PackageContent packageContent = new PackageContent("12-bottle box of rum", true, true, false);
         Package pack = new Package(mailInfo, packageContent);
-        pack.shipAndPrintTicket(PackageTypeEnum.ENVELOPE, PackageSizeEnum.MEDIUM, ShipmentModeEnum.AIR, DeliveryTimeEnum.EXPRESS);
+        pack.shipAndPrintTicket(PackageTypeEnum.BOX, PackageSizeEnum.MEDIUM, ShipmentModeEnum.AIR, DeliveryTimeEnum.REGULAR);
     }
 
     private static void sendPackageThree() {
@@ -46,11 +46,11 @@ public class PackingService {
 
     private static void sendPackageFour() {
         MailInfo mailInfo = new MailInfo();
-        mailInfo.setSenderName("Carlos Marin").setSenderAddress("Cd. Juarez, Chih")
-                .setReceiverName("Crys Castillo").setReceiverAddress("Chihuahua, Chih");
+        mailInfo.setSenderName("Pau Quezada").setSenderAddress("Casas grandes, Chih")
+                .setReceiverName("Rafa Manrique").setReceiverAddress("Colima, Col");
 
-        PackageContent packageContent = new PackageContent("12-bottle box of rum", true, true, false);
+        PackageContent packageContent = new PackageContent("Anthrax", false, false, true);
         Package pack = new Package(mailInfo, packageContent);
-        pack.shipAndPrintTicket(PackageTypeEnum.BOX, PackageSizeEnum.MEDIUM, ShipmentModeEnum.AIR, DeliveryTimeEnum.REGULAR);
+        pack.shipAndPrintTicket(PackageTypeEnum.ENVELOPE, PackageSizeEnum.MEDIUM, ShipmentModeEnum.AIR, DeliveryTimeEnum.EXPRESS);
     }
 }

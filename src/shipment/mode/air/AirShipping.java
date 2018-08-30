@@ -7,9 +7,9 @@ public interface AirShipping extends Shipping {
     @Override
     default void printStages() {
         Shipping.super.printInitialShippingStages();
-        System.out.println("- Putting package in a plane");
-        System.out.println("- Flying to destination");
-        System.out.println("- Delivering to the destination office");
+        printer.print("- Putting package in a plane");
+        printer.print("- Flying to destination");
+        printer.print("- Delivering to the destination office");
         Shipping.printFinalShippingStages();
     }
 }

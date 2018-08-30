@@ -1,5 +1,7 @@
 package shipment.mode;
 
+import util.SingleStringPrinter;
+
 public interface Shipping {
 
     String getMode();
@@ -8,9 +10,11 @@ public interface Shipping {
 
     void printStages();
 
+    SingleStringPrinter printer = System.out::println;
+
     default void printInitialShippingStages() {
-        System.out.println("- Receiving package at the origin office");
-        System.out.println("- Labeling package for shipping");
+        printer.print("- Receiving package at the origin office");
+        printer.print("- Labeling package for shipping");
     }
 
     static void printFinalShippingStages() {
