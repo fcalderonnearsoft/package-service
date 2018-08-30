@@ -2,8 +2,9 @@ package packing.size.impl.envelope;
 
 import packing.size.envelope.SizedEnvelope;
 
-public class MediumEnvelope implements SizedEnvelope {
+public class MediumEnvelope extends SizedEnvelope {
 
+    @Override
     public String getSize() {
         return "Medium";
     }

@@ -1,12 +1,17 @@
 package packing.size.box;
 
-public interface SizedBox {
+import packing.SizedPackageType;
 
-    String getSize();
+public abstract class SizedBox implements SizedPackageType {
 
-    String getLength();
+    @Override
+    public final String getMeasurements() {
+        return "Length: " + getLength() + ", Width: " + getWidth() + ", Height: " + getHeight();
+    }
 
-    String getWidth();
+    public abstract String getLength();
 
-    String getHeight();
+    public abstract String getWidth();
+
+    public abstract String getHeight();
 }

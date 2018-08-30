@@ -2,8 +2,9 @@ package packing.size.impl.box;
 
 import packing.size.box.SizedBox;
 
-public class MediumBox implements SizedBox {
+public class MediumBox extends SizedBox {
 
+    @Override
     public String getSize() {
         return "Medium";
     }

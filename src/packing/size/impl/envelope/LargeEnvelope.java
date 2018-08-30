@@ -2,10 +2,11 @@ package packing.size.impl.envelope;
 
 import packing.size.envelope.SizedEnvelope;
 
-public class LargeEnvelope implements SizedEnvelope {
+public class LargeEnvelope extends SizedEnvelope {
 
+    @Override
     public String getSize() {
-        return "Large";
+        return "large";
     }
 
     @Override

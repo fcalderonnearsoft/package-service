@@ -1,10 +1,15 @@
 package packing.size.envelope;
 
-public interface SizedEnvelope {
+import packing.SizedPackageType;
 
-    String getSize();
+public abstract class SizedEnvelope implements SizedPackageType {
 
-    String getLength();
+    @Override
+    public final String getMeasurements() {
+        return "Length: " + getLength() + ", Width: " + getWidth();
+    }
 
-    String getWidth();
+    public abstract String getLength();
+
+    public abstract String getWidth();
 }

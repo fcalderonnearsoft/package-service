@@ -1,4 +1,5 @@
 import mailing.MailInfo;
+import packing.SizedPackageType;
 import packing.content.PackageContent;
 import packing.size.PackageSizeEnum;
 
@@ -155,41 +156,37 @@ class Package {
     }
 
     private void printSmallBoxDescription() {
-        SizedBox box = new SmallBox();
-        printSizedBoxDescription(box);
+        SizedPackageType box = new SmallBox();
+        printSizedPackageTypeDescription(box);
     }
 
     private void printMediumBoxDescription() {
-        SizedBox box = new MediumBox();
-        printSizedBoxDescription(box);
+        SizedPackageType box = new MediumBox();
+        printSizedPackageTypeDescription(box);
     }
 
     private void printLargeBoxDescription() {
-        SizedBox box = new LargeBox();
-        printSizedBoxDescription(box);
+        SizedPackageType box = new LargeBox();
+        printSizedPackageTypeDescription(box);
     }
 
     private void printSmallEnvelopeDescription() {
-        SizedEnvelope envelope = new SmallEnvelope();
-        printSizedEnvelopeDescription(envelope);
+        SizedPackageType envelope = new SmallEnvelope();
+        printSizedPackageTypeDescription(envelope);
     }
 
     private void printMediumEnvelopeDescription() {
-        SizedEnvelope envelope = new MediumEnvelope();
-        printSizedEnvelopeDescription(envelope);
+        SizedPackageType envelope = new MediumEnvelope();
+        printSizedPackageTypeDescription(envelope);
     }
 
     private void printLargeEnvelopeDescription() {
-        SizedEnvelope envelope = new LargeEnvelope();
-        printSizedEnvelopeDescription(envelope);
+        SizedPackageType envelope = new LargeEnvelope();
+        printSizedPackageTypeDescription(envelope);
     }
 
-    private void printSizedBoxDescription(SizedBox box) {
-        System.out.println("Size: " + box.getSize() + " (Length: " + box.getLength() + ", Width: " + box.getWidth() + ", Height: " + box.getHeight() + ")");
-    }
-
-    private void printSizedEnvelopeDescription(SizedEnvelope envelope) {
-        System.out.println("Size: " + envelope.getSize() + " (Length: " + envelope.getLength() + ", Width: " + envelope.getWidth() + ")");
+    private void printSizedPackageTypeDescription(SizedPackageType sizedPackageType) {
+        System.out.println("Size: " + sizedPackageType.getSize() + " (" + sizedPackageType.getMeasurements() + ")");
     }
 
     private void printLandExpressShippingInfo() {

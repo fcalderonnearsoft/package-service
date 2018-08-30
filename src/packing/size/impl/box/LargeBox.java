@@ -2,8 +2,9 @@ package packing.size.impl.box;
 
 import packing.size.box.SizedBox;
 
-public class LargeBox implements SizedBox {
+public class LargeBox extends SizedBox {
 
+    @Override
     public String getSize() {
         return "Large";
     }
@@ -22,4 +23,6 @@ public class LargeBox implements SizedBox {
     public String getHeight() {
         return "300cm";
     }
+
+
 }
