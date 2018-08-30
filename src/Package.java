@@ -4,7 +4,19 @@ import packing.size.PackageSizeEnum;
 
 import java.util.Random;
 
+import packing.size.impl.box.LargeBox;
+import packing.size.impl.box.MediumBox;
+import packing.size.impl.box.SmallBox;
+import packing.size.impl.envelope.LargeEnvelope;
+import packing.size.impl.envelope.MediumEnvelope;
+import packing.size.impl.envelope.SmallEnvelope;
 import packing.type.PackageTypeEnum;
+import shipment.impl.air.ExpressAirShipping;
+import shipment.impl.air.RegularAirShipping;
+import shipment.impl.air.SlowAirShipping;
+import shipment.impl.land.ExpressLandShipping;
+import shipment.impl.land.RegularLandShipping;
+import shipment.impl.land.SlowLandShipping;
 import shipment.mode.ShipmentModeEnum;
 import shipment.time.DeliveryTimeEnum;
 
@@ -23,58 +35,23 @@ class Package {
                                    ShipmentModeEnum shippingModeEnum,
                                    DeliveryTimeEnum deliveryTimeEnum) {
 
+        System.out.println("MAIL INFORMATION");
+        System.out.println("--------------");
+
+        printMailingInformation();
+
         System.out.println("PACKAGE INFORMATION");
         System.out.println("--------------");
 
         if (packageTypeEnum.equals(PackageTypeEnum.BOX)) {
-            System.out.println("Type: box (multi-purpose box-type package)");
-
-            if (packageSizeEnum.equals(PackageSizeEnum.SMALL)) {
-                printSmallBoxDescription();
-            } else if (packageSizeEnum.equals(PackageSizeEnum.MEDIUM)) {
-                printMediumBoxDescription();
-            } else if (packageSizeEnum.equals(PackageSizeEnum.LARGE)) {
-                printLargeBoxDescription();
-            }
-
-            System.out.println("Content: " + packageContent.getDescription());
-
+            printBoxDescription(packageSizeEnum);
         } else if (packageTypeEnum.equals(PackageTypeEnum.ENVELOPE)) {
-            System.out.println("Type: envelope (multi-purpose box-type package)");
-
-            if (packageSizeEnum.equals(PackageSizeEnum.SMALL)) {
-                printSmallEnvelopeDescription();
-            } else if (packageSizeEnum.equals(PackageSizeEnum.MEDIUM)) {
-                printMediumEnvelopeDescription();
-            } else if (packageSizeEnum.equals(PackageSizeEnum.LARGE)) {
-                printLargeEnvelopeDescription();
-            }
-
-            System.out.println("Content: " + packageContent.getDescription());
+            printEnvelopeDescription(packageSizeEnum);
         }
 
-        if (packageContent.isFragile()) {
-            System.out.println("(F) Fragile");
-        }
-
-        if (packageContent.isLiquid()) {
-            System.out.println("(L) Liquid");
-        }
-
-        if (packageContent.isDangerous()) {
-            System.out.println("(D) Dangerous");
-        }
+        printPackageContent();
 
         System.out.println("\n");
-        System.out.println("MAIL INFORMATION");
-        System.out.println("--------------");
-
-        System.out.println("Sender's name: " + mailInfo.getSenderName());
-        System.out.println("Sender's address: " + mailInfo.getSenderAddress());
-        System.out.println("Receiver's name: " + mailInfo.getReceiverName());
-        System.out.println("Receiver's address: " + mailInfo.getReceiverAddress());
-        System.out.println("\n");
-
         System.out.println("SHIPPING INFORMATION");
         System.out.println("--------------");
 
@@ -100,68 +77,128 @@ class Package {
         System.out.println("\n");
     }
 
+    private void printMailingInformation() {
+        System.out.println("Sender's name: " + mailInfo.getSenderName());
+        System.out.println("Sender's address: " + mailInfo.getSenderAddress());
+        System.out.println("Receiver's name: " + mailInfo.getReceiverName());
+        System.out.println("Receiver's address: " + mailInfo.getReceiverAddress());
+        System.out.println("\n");
+    }
+
+    private void printBoxDescription(PackageSizeEnum packageSizeEnum) {
+        System.out.println("Type: Box (Multi-purpose box-type package)");
+
+        if (packageSizeEnum.equals(PackageSizeEnum.SMALL)) {
+            printSmallBoxDescription();
+        } else if (packageSizeEnum.equals(PackageSizeEnum.MEDIUM)) {
+            printMediumBoxDescription();
+        } else if (packageSizeEnum.equals(PackageSizeEnum.LARGE)) {
+            printLargeBoxDescription();
+        }
+    }
+
+    private void printEnvelopeDescription(PackageSizeEnum packageSizeEnum) {
+        System.out.println("Type: Envelope (For posting documents, photos and stuff like that)");
+
+        if (packageSizeEnum.equals(PackageSizeEnum.SMALL)) {
+            printSmallEnvelopeDescription();
+        } else if (packageSizeEnum.equals(PackageSizeEnum.MEDIUM)) {
+            printMediumEnvelopeDescription();
+        } else if (packageSizeEnum.equals(PackageSizeEnum.LARGE)) {
+            printLargeEnvelopeDescription();
+        }
+    }
+
+    private void printPackageContent() {
+        System.out.println("Content: " + packageContent.getDescription());
+
+        if (packageContent.isFragile()) {
+            System.out.println("(F) Fragile");
+        }
+
+        if (packageContent.isLiquid()) {
+            System.out.println("(L) Liquid");
+        }
+
+        if (packageContent.isDangerous()) {
+            System.out.println("(D) Dangerous");
+        }
+    }
+
     private void printSmallBoxDescription() {
-        System.out.println("Size: small (Length: 40cm, Width: 30cm, Height: 30cm)");
+        SmallBox box = new SmallBox();
+        System.out.println("Size: " + box.getDescription() + " (Length: " + box.getLength() + ", Width: " + box.getWidth() + ", Height: " + box.getHeight() + ")");
     }
 
     private void printMediumBoxDescription() {
-        System.out.println("Size: medium (Length: 100cm, Width: 100cm, Height: 100cm)");
+        MediumBox box = new MediumBox();
+        System.out.println("Size: " + box.getDescription() + " (Length: " + box.getLength() + ", Width: " + box.getWidth() + ", Height: " + box.getHeight() + ")");
     }
 
     private void printLargeBoxDescription() {
-        System.out.println("Size: large (Length: 300cm, Width: 100cm, Height: 100cm)");
+        LargeBox box = new LargeBox();
+        System.out.println("Size: " + box.getDescription() + " (Length: " + box.getLength() + ", Width: " + box.getWidth() + ", Height: " + box.getHeight() + ")");
     }
 
     private void printSmallEnvelopeDescription() {
-        System.out.println("Size: small (Length: 30cm, Width: 10cm");
+        SmallEnvelope envelope = new SmallEnvelope();
+        System.out.println("Size: " + envelope.getDescription() + " (Length: " + envelope.getLength() + ", Width: " + envelope.getWidth() + ")");
     }
 
     private void printMediumEnvelopeDescription() {
-        System.out.println("Size: medium (Length: 40cm, Width: 30cm");
+        MediumEnvelope envelope = new MediumEnvelope();
+        System.out.println("Size: " + envelope.getDescription() + " (Length: " + envelope.getLength() + ", Width: " + envelope.getWidth() + ")");
     }
 
     private void printLargeEnvelopeDescription() {
-        System.out.println("Size: large (Length: 60cm, Width: 45cm");
+        LargeEnvelope envelope = new LargeEnvelope();
+        System.out.println("Size: " + envelope.getDescription() + " (Length: " + envelope.getLength() + ", Width: " + envelope.getWidth() + ")");
     }
 
     private void printLandExpressDeliveryInfo() {
-        System.out.println("- Mode: land express shipping");
-        System.out.println("- Delivery time: 2 to 3 day delivery");
+        ExpressLandShipping shippingMode = new ExpressLandShipping();
+        System.out.println("- Mode: " + shippingMode.getMode());
+        System.out.println("- Delivery time: " + shippingMode.getDeliveryTime());
         printFolio();
         printLandDeliveryStages();
     }
 
     private void printLandRegularDeliveryInfo() {
-        System.out.println("- Mode: land express shipping");
-        System.out.println("- Delivery time: 5 to 6 day delivery");
+        RegularLandShipping shippingMode = new RegularLandShipping();
+        System.out.println("- Mode: " + shippingMode.getMode());
+        System.out.println("- Delivery time: " + shippingMode.getDeliveryTime());
         printFolio();
         printLandDeliveryStages();
     }
 
     private void printLandSlowDeliveryInfo() {
-        System.out.println("- Mode: land express shipping");
-        System.out.println("- Delivery time: 2 week delivery");
+        SlowLandShipping shippingMode = new SlowLandShipping();
+        System.out.println("- Mode: " + shippingMode.getMode());
+        System.out.println("- Delivery time: " + shippingMode.getDeliveryTime());
         printFolio();
         printLandDeliveryStages();
     }
 
     private void printAirExpressDeliveryInfo() {
-        System.out.println("- Mode: air express shipping");
-        System.out.println("- Delivery time: guaranteed next day delivery");
+        ExpressAirShipping shippingMode = new ExpressAirShipping();
+        System.out.println("- Mode: " + shippingMode.getMode());
+        System.out.println("- Delivery time: " + shippingMode.getDeliveryTime());
         printFolio();
         printAirDeliveryStages();
     }
 
     private void printAirRegularDeliveryInfo() {
-        System.out.println("- Mode: air regular shipping");
-        System.out.println("- Delivery time: 2 to 3 day delivery");
+        RegularAirShipping shippingMode = new RegularAirShipping();
+        System.out.println("- Mode: " + shippingMode.getMode());
+        System.out.println("- Delivery time: " + shippingMode.getDeliveryTime());
         printFolio();
         printAirDeliveryStages();
     }
 
     private void printAirSlowDeliveryInfo() {
-        System.out.println("- Mode: air slow shipping");
-        System.out.println("- Delivery time: one week delivery");
+        SlowAirShipping shippingMode = new SlowAirShipping();
+        System.out.println("- Mode: " + shippingMode.getMode());
+        System.out.println("- Delivery time: " + shippingMode.getDeliveryTime());
         printFolio();
         printAirDeliveryStages();
     }
