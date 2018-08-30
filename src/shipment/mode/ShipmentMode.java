@@ -14,52 +14,69 @@ public abstract class ShipmentMode {
 
     protected DeliveryTimeFactory deliveryTimeFactory;
 
-    protected Map<String, String> shipmentInformation;
+    private Map<String, String> shipmentInfo;
 
-    public ShipmentMode() {
-        shipmentInformation = new LinkedHashMap<>();
+    private int deliveryStageCount;
+
+    protected ShipmentMode() {
+        shipmentInfo = new LinkedHashMap<>();
+        deliveryStageCount = 1;
     }
 
-    public void setDeliveryTime(DeliveryTimeEnum deliveryTimeEnum) {
+    protected void setDeliveryTime(DeliveryTimeEnum deliveryTimeEnum) {
         this.deliveryTime = deliveryTimeFactory.create(deliveryTimeEnum);
     }
 
     protected abstract String getMode();
 
-    public final Map<String, String> ship() {
+    public final Map<String, String> getShipmentInfo() {
         printShipmentMode();
         printDeliveryTime();
+        generateFolio();
         receivePackageAtOrigin();
         labelPackage();
-        generateFolio();
         transport();
         receivePackageAtDestination();
-        return shipmentInformation;
+
+        return shipmentInfo;
     }
 
     private void printShipmentMode() {
-        shipmentInformation.put("Mode", getMode());
+        addShipmentInfo("Mode", getMode());
     }
 
     private void printDeliveryTime() {
-        shipmentInformation.put("Delivery time", deliveryTime.getTime() + "\n");
-    }
-
-    private void receivePackageAtOrigin() {
-        shipmentInformation.put("Step " + (shipmentInformation.size() - 1), "Receiving package at the origin office");
-    }
-
-    private void labelPackage() {
-        shipmentInformation.put("Step " + (shipmentInformation.size() - 1), "Labeling package for shipping");
+        addShipmentInfo("Delivery time", deliveryTime.getTime());
     }
 
     private void generateFolio() {
-        shipmentInformation.put("Step " + (shipmentInformation.size() - 1), "Folio number" + String.valueOf(new Random().nextInt(1000000)));
+        addShipmentInfo("Folio number", String.valueOf(new Random().nextInt(1000000)) + "\n");
+    }
+
+    private void receivePackageAtOrigin() {
+        addShipmentInfo(deliveryStageCount, "Receiving package at the origin office");
+    }
+
+    private void labelPackage() {
+        addShipmentInfo(deliveryStageCount, "Labeling package for shipping");
     }
 
     protected abstract void transport();
 
     private void receivePackageAtDestination() {
-        shipmentInformation.put("Step " + (shipmentInformation.size() - 1), "Receiving package at destination office");
+        addShipmentInfo(deliveryStageCount, "Receiving package at destination office");
+    }
+
+    protected void addShipmentInfo(int stageNumber, String value) {
+        addShipmentInfo("Step " + stageNumber, value);
+        deliveryStageCount++;
+    }
+
+    protected void addShipmentInfo(String key, String value) {
+        shipmentInfo.put(key, value);
+    }
+
+    protected int getDeliveryStageCount() {
+        return deliveryStageCount;
     }
 }

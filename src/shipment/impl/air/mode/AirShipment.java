@@ -18,8 +18,8 @@ public class AirShipment extends ShipmentMode {
 
     @Override
     protected void transport() {
-        shipmentInformation.put("Step " + (shipmentInformation.size() - 1), "Putting package in a plane");
-        shipmentInformation.put("Step " + (shipmentInformation.size() - 1), "Flying to destination");
-        shipmentInformation.put("Step " + (shipmentInformation.size() - 1), "Delivering to the destination office");
+        addShipmentInfo(getDeliveryStageCount(), "Putting package in a plane");
+        addShipmentInfo(getDeliveryStageCount(), "Flying to destination");
+        addShipmentInfo(getDeliveryStageCount(), "Delivering to the destination office");
     }
 }
