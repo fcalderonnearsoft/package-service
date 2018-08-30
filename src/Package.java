@@ -4,17 +4,21 @@ import packing.size.PackageSizeEnum;
 
 import java.util.Random;
 
+import packing.size.impl.box.Box;
 import packing.size.impl.box.LargeBox;
 import packing.size.impl.box.MediumBox;
 import packing.size.impl.box.SmallBox;
+import packing.size.impl.envelope.Envelope;
 import packing.size.impl.envelope.LargeEnvelope;
 import packing.size.impl.envelope.MediumEnvelope;
 import packing.size.impl.envelope.SmallEnvelope;
 import packing.type.PackageTypeEnum;
+import shipment.impl.air.AirShipping;
 import shipment.impl.air.ExpressAirShipping;
 import shipment.impl.air.RegularAirShipping;
 import shipment.impl.air.SlowAirShipping;
 import shipment.impl.land.ExpressLandShipping;
+import shipment.impl.land.LandShipping;
 import shipment.impl.land.RegularLandShipping;
 import shipment.impl.land.SlowLandShipping;
 import shipment.mode.ShipmentModeEnum;
@@ -86,7 +90,8 @@ class Package {
     }
 
     private void printBoxDescription(PackageSizeEnum packageSizeEnum) {
-        System.out.println("Type: Box (Multi-purpose box-type package)");
+        Box box = new Box();
+        System.out.println("Type: " + box.getName() + " " + box.getDescription());
 
         if (packageSizeEnum.equals(PackageSizeEnum.SMALL)) {
             printSmallBoxDescription();
@@ -98,7 +103,8 @@ class Package {
     }
 
     private void printEnvelopeDescription(PackageSizeEnum packageSizeEnum) {
-        System.out.println("Type: Envelope (For posting documents, photos and stuff like that)");
+        Envelope envelope = new Envelope();
+        System.out.println("Type: " + envelope.getName() + " " + envelope.getDescription());
 
         if (packageSizeEnum.equals(PackageSizeEnum.SMALL)) {
             printSmallEnvelopeDescription();
@@ -209,20 +215,12 @@ class Package {
     }
 
     private void printLandDeliveryStages() {
-        System.out.println("- Receiving package at the origin office");
-        System.out.println("- Labeling package for shipping");
-        System.out.println("- Putting package in a delivery truck");
-        System.out.println("- Driving to destination");
-        System.out.println("- Arriving to the destination office");
-        System.out.println("- Receiving package at destination office");
+        LandShipping shipping = new LandShipping();
+        shipping.printShippingStages();
     }
 
     private void printAirDeliveryStages() {
-        System.out.println("- Receiving package at the origin office");
-        System.out.println("- Labeling package for shipping");
-        System.out.println("- Putting package in a plane");
-        System.out.println("- Flying to destination");
-        System.out.println("- Delivering to the destination office");
-        System.out.println("- Receiving package at destination office");
+        AirShipping shipping = new AirShipping();
+        shipping.printShippingStages();
     }
 }
