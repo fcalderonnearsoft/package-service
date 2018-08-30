@@ -194,45 +194,40 @@ class Package {
 
     private void printLandExpressShippingInfo() {
         Shipping shipping = new ExpressLandShipping();
-        printLandShippingInfo(shipping);
+        printShippingInfo(shipping);
     }
 
     private void printLandRegularShippingInfo() {
         Shipping shipping = new RegularLandShipping();
-        printLandShippingInfo(shipping);
+        printShippingInfo(shipping);
     }
 
     private void printLandSlowShippingInfo() {
         Shipping shipping = new SlowLandShipping();
-        printLandShippingInfo(shipping);
+        printShippingInfo(shipping);
     }
 
     private void printAirExpressShippingInfo() {
         Shipping shipping = new ExpressAirShipping();
-        printAirShippingInfo(shipping);
+        printShippingInfo(shipping);
     }
 
     private void printAirRegularShippingInfo() {
         Shipping shipping = new RegularAirShipping();
-        printAirShippingInfo(shipping);
+        printShippingInfo(shipping);
     }
 
     private void printAirSlowShippingInfo() {
         Shipping shipping = new SlowAirShipping();
-        printAirShippingInfo(shipping);
+        printShippingInfo(shipping);
     }
 
-    private void printLandShippingInfo(Shipping shipping) {
-        printShippingInformation(shipping);
-        LandShipping.printShippingStages();
+    private void printShippingInfo(Shipping shipping) {
+        printShippingMode(shipping);
+        shipping.printStages();
     }
 
-    private void printAirShippingInfo(Shipping shipping) {
-        printShippingInformation(shipping);
-        AirShipping.printShippingStages();
-    }
-
-    private void printShippingInformation(Shipping shipping) {
+    private void printShippingMode(Shipping shipping) {
         System.out.println("- Mode: " + shipping.getMode());
         System.out.println("- Delivery time: " + shipping.getDeliveryTime());
         printFolio();

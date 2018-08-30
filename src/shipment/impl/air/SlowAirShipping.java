@@ -2,7 +2,7 @@ package shipment.impl.air;
 
 import shipment.mode.air.AirShipping;
 
-public class SlowAirShipping extends AirShipping {
+public class SlowAirShipping implements AirShipping {
 
     @Override
     public String getMode() {

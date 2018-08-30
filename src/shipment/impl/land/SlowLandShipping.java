@@ -2,7 +2,7 @@ package shipment.impl.land;
 
 import shipment.mode.land.LandShipping;
 
-public class SlowLandShipping extends LandShipping {
+public class SlowLandShipping implements LandShipping {
 
     @Override
     public String getMode() {

@@ -1,8 +1,9 @@
 package shipment.impl.air;
 
+import shipment.mode.Shipping;
 import shipment.mode.air.AirShipping;
 
-public class ExpressAirShipping extends AirShipping {
+public class ExpressAirShipping implements AirShipping {
 
     @Override
     public String getMode() {
