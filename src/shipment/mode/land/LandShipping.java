@@ -1,10 +1,8 @@
 package shipment.mode.land;
 
-public abstract class LandShipping {
+import shipment.mode.Shipping;
 
-    public abstract String getMode();
-
-    public abstract String getDeliveryTime();
+public abstract class LandShipping implements Shipping {
 
     public static void printShippingStages() {
         System.out.println("- Receiving package at the origin office");
